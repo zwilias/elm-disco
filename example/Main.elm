@@ -47,8 +47,8 @@ renderTodo item =
     with q.intro <|
         \intro ->
             div []
-                [ text intro
-                , text item
+                [ p [] [ text intro ]
+                , p [] [ text item ]
                 ]
 
 
@@ -57,8 +57,8 @@ subView =
     with identity <|
         \{ first, second } ->
             div []
-                [ text <| "first: " ++ first
-                , text <| "second: " ++ second
+                [ p [] [ text <| "first: " ++ first ]
+                , p [] [ text <| "second: " ++ second ]
                 ]
 
 

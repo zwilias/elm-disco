@@ -5,6 +5,7 @@ module Disco
         , div
         , li
         , map
+        , p
         , render
         , split
         , text
@@ -24,7 +25,7 @@ and data extraction from the store is decoupled from the view logic.
 
 # DOM
 
-@docs render, wrap, div, text, ul, li
+@docs render, wrap, div, text, ul, li, p
 
 -}
 
@@ -126,3 +127,10 @@ ul =
 li : List (Html.Attribute msg) -> List (View store msg) -> View store msg
 li =
     wrap Html.li
+
+
+{-| The disco equivalent of `Html.p`.
+-}
+p : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+p =
+    wrap Html.p
