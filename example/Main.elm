@@ -20,6 +20,7 @@ q :
     { items : Query Store (List String)
     , intro : Query Store String
     , foo : Query Store SubStore
+    , hardcoded : Query Store String
     }
 q =
     { items = .todo >> List.reverse
@@ -29,6 +30,7 @@ q =
             { first = store.todo |> List.head |> Maybe.withDefault "bar"
             , second = "nope"
             }
+    , hardcoded = always "there"
     }
 
 
@@ -39,6 +41,7 @@ view =
             div []
                 [ ul [] <| List.map (renderTodo >> List.singleton >> li []) items
                 , split q.foo subView
+                , usingMultiple
                 ]
 
 
@@ -60,6 +63,13 @@ subView =
                 [ p [] [ text <| "first: " ++ first ]
                 , p [] [ text <| "second: " ++ second ]
                 ]
+
+
+usingMultiple : View Store msg
+usingMultiple =
+    with2 q.intro q.hardcoded <|
+        \foo bar ->
+            text (foo ++ " - " ++ bar)
 
 
 initialStore : Store

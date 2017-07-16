@@ -60,6 +60,7 @@ module Disco
         , table
         , tbody
         , td
+        , text
         , textarea
         , tfoot
         , th
@@ -110,7 +111,7 @@ and data extraction from the store is decoupled from the view logic.
 
 ### Text
 
-@docs span, a, code, em, strong, i, b, u, sub, sup, br
+@docs text, span, a, code, em, strong, i, b, u, sub, sup, br
 
 
 ### Lists
