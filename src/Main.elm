@@ -1,7 +1,7 @@
 module Main exposing (..)
 
-import Reactive exposing (Query, program)
-import Reactive.View exposing (..)
+import Disco exposing (..)
+import Html
 
 
 type alias Store =
@@ -10,13 +10,25 @@ type alias Store =
     }
 
 
+type alias SubStore =
+    { first : String
+    , second : String
+    }
+
+
 q :
     { items : Query Store (List String)
     , intro : Query Store String
+    , foo : Query Store SubStore
     }
 q =
     { items = .todo >> List.reverse
     , intro = .otherThing
+    , foo =
+        \store ->
+            { first = store.todo |> List.head |> Maybe.withDefault "bar"
+            , second = "nope"
+            }
     }
 
 
@@ -24,7 +36,10 @@ view : View Store msg
 view =
     with q.items <|
         \items ->
-            List.map renderTodo items |> div []
+            div []
+                [ ul [] <| List.map (renderTodo >> List.singleton >> li []) items
+                , split q.foo subView
+                ]
 
 
 renderTodo : String -> View Store msg
@@ -37,6 +52,16 @@ renderTodo item =
                 ]
 
 
+subView : View SubStore msg
+subView =
+    with identity <|
+        \{ first, second } ->
+            div []
+                [ text <| "first: " ++ first
+                , text <| "second: " ++ second
+                ]
+
+
 init : ( Store, Cmd msg )
 init =
     { todo = [ "hello", "world" ]
@@ -46,8 +71,9 @@ init =
 
 
 main =
-    program
+    Html.program
         { init = init
         , update = \_ store -> store ! []
-        , view = view
+        , view = render view
+        , subscriptions = always Sub.none
         }
