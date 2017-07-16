@@ -2,15 +2,77 @@ module Disco
     exposing
         ( Query
         , View
+        , a
+        , address
+        , article
+        , aside
+        , b
+        , blockquote
+        , br
+        , button
+        , canvas
+        , caption
+        , code
+        , col
+        , colgroup
+        , dd
         , div
+        , dl
+        , dt
+        , em
+        , fieldset
+        , figcaption
+        , figure
+        , footer
+        , form
+        , h1
+        , h2
+        , h3
+        , h4
+        , h5
+        , h6
+        , header
+        , hr
+        , i
+        , iframe
+        , img
+        , input
+        , label
+        , legend
         , li
+        , main_
         , map
+        , math
+        , nav
+        , ol
+        , option
         , p
+        , pre
+        , progress
         , render
+        , section
+        , select
+        , span
         , split
-        , text
+        , strong
+        , sub
+        , sup
+        , table
+        , tbody
+        , td
+        , textarea
+        , tfoot
+        , th
+        , thead
+        , tr
+        , u
         , ul
         , with
+        , with2
+        , with3
+        , with4
+        , with5
+        , with6
         , wrap
         )
 
@@ -21,6 +83,11 @@ and data extraction from the store is decoupled from the view logic.
 # Building blocks
 
 @docs View, Query, with, split, map
+
+
+# More args
+
+@docs with2, with3, with4, with5, with6
 
 
 # DOM
@@ -109,6 +176,99 @@ with extract toView =
             toView (extract store) |> apply store
 
 
+{-| View with 2 pieces of data.
+-}
+with2 :
+    Query store data1
+    -> Query store data2
+    -> (data1 -> data2 -> View store msg)
+    -> View store msg
+with2 extract1 extract2 toView =
+    View <|
+        \store ->
+            toView (extract1 store) (extract2 store) |> apply store
+
+
+{-| View with 3 pieces of data.
+-}
+with3 :
+    Query store data1
+    -> Query store data2
+    -> Query store data3
+    -> (data1 -> data2 -> data3 -> View store msg)
+    -> View store msg
+with3 extract1 extract2 extract3 toView =
+    View <|
+        \store ->
+            toView (extract1 store) (extract2 store) (extract3 store) |> apply store
+
+
+{-| View with 4 pieces of data.
+-}
+with4 :
+    Query store data1
+    -> Query store data2
+    -> Query store data3
+    -> Query store data4
+    -> (data1 -> data2 -> data3 -> data4 -> View store msg)
+    -> View store msg
+with4 extract1 extract2 extract3 extract4 toView =
+    View <|
+        \store ->
+            toView
+                (extract1 store)
+                (extract2 store)
+                (extract3 store)
+                (extract4 store)
+                |> apply store
+
+
+{-| View with 5 pieces of data.
+-}
+with5 :
+    Query store data1
+    -> Query store data2
+    -> Query store data3
+    -> Query store data4
+    -> Query store data5
+    -> (data1 -> data2 -> data3 -> data4 -> data5 -> View store msg)
+    -> View store msg
+with5 extract1 extract2 extract3 extract4 extract5 toView =
+    View <|
+        \store ->
+            toView
+                (extract1 store)
+                (extract2 store)
+                (extract3 store)
+                (extract4 store)
+                (extract5 store)
+                |> apply store
+
+
+{-| View with 6 pieces of data.
+-}
+with6 :
+    Query store data1
+    -> Query store data2
+    -> Query store data3
+    -> Query store data4
+    -> Query store data5
+    -> Query store data6
+    -> (data1 -> data2 -> data3 -> data4 -> data5 -> data6 -> View store msg)
+    -> View store msg
+with6 extract1 extract2 extract3 extract4 extract5 extract6 toView =
+    View <|
+        \store ->
+            toView
+                (extract1 store)
+                (extract2 store)
+                (extract3 store)
+                (extract4 store)
+                (extract5 store)
+                (extract6 store)
+                |> apply store
+
+
 {-| Include a `View` that works on a different data-model, by using a query to
 transform/extract the new data-model from the current data-model.
 -}
@@ -135,9 +295,7 @@ wrap :
     -> List (View store msg)
     -> View store msg
 wrap htmlTag attrs children =
-    View <|
-        \store ->
-            htmlTag attrs (List.map (apply store) children)
+    View <| apply >> flip List.map children >> htmlTag attrs
 
 
 apply : store -> View store msg -> Html msg
@@ -152,6 +310,10 @@ to `Html.program` and friends.
 render : View store msg -> store -> Html msg
 render =
     flip apply
+
+
+
+-- DOM elements
 
 
 {-| -}
