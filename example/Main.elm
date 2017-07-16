@@ -62,18 +62,12 @@ subView =
                 ]
 
 
-init : ( Store, Cmd msg )
-init =
+initialStore : Store
+initialStore =
     { todo = [ "hello", "world" ]
     , otherThing = "hi"
     }
-        ! []
 
 
 main =
-    Html.program
-        { init = init
-        , update = \_ store -> store ! []
-        , view = render view
-        , subscriptions = always Sub.none
-        }
+    render view initialStore

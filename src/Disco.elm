@@ -25,7 +25,60 @@ and data extraction from the store is decoupled from the view logic.
 
 # DOM
 
-@docs render, wrap, div, text, ul, li, p
+@docs render, wrap
+
+
+## Tags
+
+
+### Headers
+
+@docs h1, h2, h3, h4, h5, h6
+
+
+### Grouping content
+
+@docs div, p, hr, pre, blockquote
+
+
+### Text
+
+@docs span, a, code, em, strong, i, b, u, sub, sup, br
+
+
+### Lists
+
+@docs ol, ul, li, dl, dt, dd
+
+
+### Embedded content
+
+@docs img, iframe, canvas, math
+
+
+### Forms
+
+@docs form, input, textarea, button, select, option, label, fieldset, legend
+
+
+### Sections
+
+@docs section, nav, article, aside, header, footer, address, main_
+
+
+### Figures
+
+@docs figure, figcaption
+
+
+### Tables
+
+@docs table, caption, colgroup, col, tbody, thead, tfoot, tr, td, th
+
+
+### Weird stuff
+
+@docs progress
 
 -}
 
@@ -101,36 +154,379 @@ render =
     flip apply
 
 
-{-| The disco equivalent of `Html.div`.
--}
+{-| -}
+text : String -> View store msg
+text input =
+    View <| always <| Html.text input
+
+
+{-| -}
+h1 : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+h1 =
+    wrap Html.h1
+
+
+{-| -}
+h2 : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+h2 =
+    wrap Html.h2
+
+
+{-| -}
+h3 : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+h3 =
+    wrap Html.h3
+
+
+{-| -}
+h4 : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+h4 =
+    wrap Html.h4
+
+
+{-| -}
+h5 : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+h5 =
+    wrap Html.h5
+
+
+{-| -}
+h6 : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+h6 =
+    wrap Html.h6
+
+
+{-| -}
 div : List (Html.Attribute msg) -> List (View store msg) -> View store msg
 div =
     wrap Html.div
 
 
-{-| The disco equivalent of `Html.text`.
--}
-text : String -> View store msg
-text content =
-    View <| \_ -> Html.text content
+{-| -}
+p : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+p =
+    wrap Html.p
 
 
-{-| The disco equivalent of `Html.ul`.
--}
+{-| -}
+hr : List (Html.Attribute msg) -> View store msg
+hr attrs =
+    wrap Html.hr attrs []
+
+
+{-| -}
+pre : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+pre =
+    wrap Html.pre
+
+
+{-| -}
+blockquote : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+blockquote =
+    wrap Html.blockquote
+
+
+{-| -}
+span : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+span =
+    wrap Html.span
+
+
+{-| -}
+a : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+a =
+    wrap Html.a
+
+
+{-| -}
+code : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+code =
+    wrap Html.code
+
+
+{-| -}
+em : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+em =
+    wrap Html.em
+
+
+{-| -}
+strong : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+strong =
+    wrap Html.strong
+
+
+{-| -}
+i : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+i =
+    wrap Html.i
+
+
+{-| -}
+b : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+b =
+    wrap Html.b
+
+
+{-| -}
+u : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+u =
+    wrap Html.u
+
+
+{-| -}
+sub : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+sub =
+    wrap Html.sub
+
+
+{-| -}
+sup : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+sup =
+    wrap Html.sup
+
+
+{-| -}
+br : List (Html.Attribute msg) -> View store msg
+br attrs =
+    wrap Html.br attrs []
+
+
+{-| -}
+ol : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+ol =
+    wrap Html.ol
+
+
+{-| -}
 ul : List (Html.Attribute msg) -> List (View store msg) -> View store msg
 ul =
     wrap Html.ul
 
 
-{-| The disco equivalent of `Html.li`.
--}
+{-| -}
 li : List (Html.Attribute msg) -> List (View store msg) -> View store msg
 li =
     wrap Html.li
 
 
-{-| The disco equivalent of `Html.p`.
--}
-p : List (Html.Attribute msg) -> List (View store msg) -> View store msg
-p =
-    wrap Html.p
+{-| -}
+dl : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+dl =
+    wrap Html.dl
+
+
+{-| -}
+dt : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+dt =
+    wrap Html.dt
+
+
+{-| -}
+dd : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+dd =
+    wrap Html.dd
+
+
+{-| -}
+img : List (Html.Attribute msg) -> View store msg
+img attrs =
+    wrap Html.img attrs []
+
+
+{-| -}
+iframe : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+iframe =
+    wrap Html.iframe
+
+
+{-| -}
+canvas : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+canvas =
+    wrap Html.canvas
+
+
+{-| -}
+math : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+math =
+    wrap Html.math
+
+
+{-| -}
+form : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+form =
+    wrap Html.form
+
+
+{-| -}
+input : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+input =
+    wrap Html.input
+
+
+{-| -}
+textarea : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+textarea =
+    wrap Html.textarea
+
+
+{-| -}
+button : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+button =
+    wrap Html.button
+
+
+{-| -}
+select : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+select =
+    wrap Html.select
+
+
+{-| -}
+option : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+option =
+    wrap Html.option
+
+
+{-| -}
+label : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+label =
+    wrap Html.label
+
+
+{-| -}
+fieldset : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+fieldset =
+    wrap Html.fieldset
+
+
+{-| -}
+legend : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+legend =
+    wrap Html.legend
+
+
+{-| -}
+section : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+section =
+    wrap Html.section
+
+
+{-| -}
+nav : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+nav =
+    wrap Html.nav
+
+
+{-| -}
+article : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+article =
+    wrap Html.article
+
+
+{-| -}
+aside : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+aside =
+    wrap Html.aside
+
+
+{-| -}
+header : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+header =
+    wrap Html.header
+
+
+{-| -}
+footer : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+footer =
+    wrap Html.footer
+
+
+{-| -}
+address : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+address =
+    wrap Html.address
+
+
+{-| -}
+main_ : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+main_ =
+    wrap Html.main_
+
+
+{-| -}
+figure : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+figure =
+    wrap Html.figure
+
+
+{-| -}
+figcaption : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+figcaption =
+    wrap Html.figcaption
+
+
+{-| -}
+table : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+table =
+    wrap Html.table
+
+
+{-| -}
+caption : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+caption =
+    wrap Html.caption
+
+
+{-| -}
+colgroup : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+colgroup =
+    wrap Html.colgroup
+
+
+{-| -}
+col : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+col =
+    wrap Html.col
+
+
+{-| -}
+tbody : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+tbody =
+    wrap Html.tbody
+
+
+{-| -}
+thead : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+thead =
+    wrap Html.thead
+
+
+{-| -}
+tfoot : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+tfoot =
+    wrap Html.tfoot
+
+
+{-| -}
+tr : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+tr =
+    wrap Html.tr
+
+
+{-| -}
+td : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+td =
+    wrap Html.td
+
+
+{-| -}
+th : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+th =
+    wrap Html.th
+
+
+{-| -}
+progress : List (Html.Attribute msg) -> List (View store msg) -> View store msg
+progress =
+    wrap Html.progress
