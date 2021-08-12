@@ -60,7 +60,6 @@ renderTodo item =
                 , p [] [ text item ]
                 ]
 
-
 subView : View SubStore msg
 subView =
     with identity <|
@@ -87,7 +86,6 @@ initialStore =
 
 
 -- Main browser program
-
 
 main : Program () () ()
 main =

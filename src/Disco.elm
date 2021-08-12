@@ -254,7 +254,7 @@ render =
 -- Utils
 
 
-{-| The old flip function was removed in elm 0.19
+{-| The flip function is removed in elm 0.19
 -}
 flip : (a -> b -> c) -> b -> a -> c
 flip function argB argA =
