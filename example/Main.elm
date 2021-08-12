@@ -2,7 +2,6 @@ module Main exposing (..)
 
 import Browser
 import Disco exposing (..)
-import Html exposing (Html)
 
 
 type alias Store =
