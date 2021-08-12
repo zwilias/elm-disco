@@ -1,7 +1,7 @@
 module Main exposing (..)
 
+import Browser
 import Disco exposing (..)
-import Html
 
 
 type alias Store =
@@ -27,7 +27,10 @@ q =
     , intro = .otherThing
     , foo =
         \store ->
-            { first = store.todo |> List.head |> Maybe.withDefault "bar"
+            { first =
+                store.todo
+                    |> List.head
+                    |> Maybe.withDefault "bar"
             , second = "nope"
             }
     , hardcoded = always "there"
@@ -39,7 +42,9 @@ view =
     with q.items <|
         \items ->
             div []
-                [ ul [] <| List.map (renderTodo >> List.singleton >> li []) items
+                [ items
+                    |> List.map (renderTodo >> List.singleton >> li [])
+                    |> ul []
                 , split q.foo subView
                 , usingMultiple
                 ]
@@ -79,5 +84,15 @@ initialStore =
     }
 
 
+
+-- Main browser program
+
+
+main : Program () () ()
 main =
-    render view initialStore
+    Browser.element
+        { init = \_ -> ( (), Cmd.none )
+        , update = \_ _ -> ( (), Cmd.none )
+        , subscriptions = \_ -> Sub.none
+        , view = \_ -> render view initialStore
+        }
