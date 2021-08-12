@@ -1,81 +1,18 @@
-module Disco
-    exposing
-        ( Query
-        , View
-        , a
-        , address
-        , article
-        , aside
-        , b
-        , blockquote
-        , br
-        , button
-        , canvas
-        , caption
-        , code
-        , col
-        , colgroup
-        , dd
-        , div
-        , dl
-        , dt
-        , em
-        , fieldset
-        , figcaption
-        , figure
-        , footer
-        , form
-        , h1
-        , h2
-        , h3
-        , h4
-        , h5
-        , h6
-        , header
-        , hr
-        , i
-        , iframe
-        , img
-        , input
-        , label
-        , legend
-        , li
-        , main_
-        , map
-        , math
-        , nav
-        , ol
-        , option
-        , p
-        , pre
-        , progress
-        , render
-        , section
-        , select
-        , span
-        , split
-        , strong
-        , sub
-        , sup
-        , table
-        , tbody
-        , td
-        , text
-        , textarea
-        , tfoot
-        , th
-        , thead
-        , tr
-        , u
-        , ul
-        , with
-        , with2
-        , with3
-        , with4
-        , with5
-        , with6
-        , wrap
-        )
+module Disco exposing
+    ( View, Query, with, split, map
+    , with2, with3, with4, with5, with6
+    , render, wrap
+    , h1, h2, h3, h4, h5, h6
+    , div, p, hr, pre, blockquote
+    , text, span, a, code, em, strong, i, b, u, sub, sup, br
+    , ol, ul, li, dl, dt, dd
+    , img, iframe, canvas, math
+    , form, input, textarea, button, select, option, label, fieldset, legend
+    , section, nav, article, aside, header, footer, address, main_
+    , figure, figcaption
+    , table, caption, colgroup, col, tbody, thead, tfoot, tr, td, th
+    , progress
+    )
 
 {-| Exploratory package for views where the model isn't explicitly passed around
 and data extraction from the store is decoupled from the view logic.
@@ -274,15 +211,15 @@ with6 extract1 extract2 extract3 extract4 extract5 extract6 toView =
 transform/extract the new data-model from the current data-model.
 -}
 split : Query store partial -> View partial msg -> View store msg
-split extract (View render) =
-    View <| extract >> render
+split extract (View r) =
+    View <| extract >> r
 
 
 {-| The equivalent of `Html.map` to map the `msg` part of the view.
 -}
 map : (subMsg -> msg) -> View partial subMsg -> View partial msg
-map tagger (View render) =
-    View <| render >> Html.map tagger
+map tagger (View r) =
+    View <| r >> Html.map tagger
 
 
 {-| Lift a regular old `Html` node into the world of `Disco`.
@@ -314,13 +251,24 @@ render =
 
 
 
+-- Utils
+
+
+{-| The old flip function was removed in elm 0.19
+-}
+flip : (a -> b -> c) -> b -> a -> c
+flip function argB argA =
+    function argA argB
+
+
+
 -- DOM elements
 
 
 {-| -}
 text : String -> View store msg
-text input =
-    View <| always <| Html.text input
+text input_ =
+    View <| always <| Html.text input_
 
 
 {-| -}

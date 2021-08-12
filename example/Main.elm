@@ -1,13 +1,14 @@
 module Main exposing (..)
 
 import Disco exposing (..)
-import Html
-
+import Html exposing (Html)
+import Browser
 
 type alias Store =
     { todo : List String
     , otherThing : String
     }
+
 
 
 type alias SubStore =
@@ -34,8 +35,8 @@ q =
     }
 
 
-view : View Store msg
-view =
+view_ : View Store msg
+view_ =
     with q.items <|
         \items ->
             div []
@@ -78,6 +79,14 @@ initialStore =
     , otherThing = "hi"
     }
 
-
+-- SUBSCRIPTIONS
+main : Program () () ()
 main =
-    render view initialStore
+  Browser.element
+    { init = \_ -> ((), Cmd.none)
+    , update = \_ _ -> ((), Cmd.none)
+    , subscriptions =\_ ->  Sub.none
+    , view = \_ -> render view_ initialStore
+    }
+
+
