@@ -10702,7 +10702,7 @@ var $zwilias$elm_disco$Main$usingMultiple = A3(
 		function (foo, bar) {
 			return $zwilias$elm_disco$Disco$text(foo + (' - ' + bar));
 		}));
-var $zwilias$elm_disco$Main$view_ = A2(
+var $zwilias$elm_disco$Main$view = A2(
 	$zwilias$elm_disco$Disco$with,
 	$zwilias$elm_disco$Main$q.items,
 	function (items) {
@@ -10741,7 +10741,7 @@ var $zwilias$elm_disco$Main$main = $elm$browser$Browser$element(
 				return _Utils_Tuple2(_Utils_Tuple0, $elm$core$Platform$Cmd$none);
 			}),
 		view: function (_v4) {
-			return A2($zwilias$elm_disco$Disco$render, $zwilias$elm_disco$Main$view_, $zwilias$elm_disco$Main$initialStore);
+			return A2($zwilias$elm_disco$Disco$render, $zwilias$elm_disco$Main$view, $zwilias$elm_disco$Main$initialStore);
 		}
 	});
 _Platform_export({'Main':{'init':$zwilias$elm_disco$Main$main(

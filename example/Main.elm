@@ -1,14 +1,14 @@
 module Main exposing (..)
 
+import Browser
 import Disco exposing (..)
 import Html exposing (Html)
-import Browser
+
 
 type alias Store =
     { todo : List String
     , otherThing : String
     }
-
 
 
 type alias SubStore =
@@ -28,19 +28,24 @@ q =
     , intro = .otherThing
     , foo =
         \store ->
-            { first = store.todo |> List.head |> Maybe.withDefault "bar"
+            { first =
+                store.todo
+                    |> List.head
+                    |> Maybe.withDefault "bar"
             , second = "nope"
             }
     , hardcoded = always "there"
     }
 
 
-view_ : View Store msg
-view_ =
+view : View Store msg
+view =
     with q.items <|
         \items ->
             div []
-                [ ul [] <| List.map (renderTodo >> List.singleton >> li []) items
+                [ items
+                    |> List.map (renderTodo >> List.singleton >> li [])
+                    |> ul []
                 , split q.foo subView
                 , usingMultiple
                 ]
@@ -79,14 +84,16 @@ initialStore =
     , otherThing = "hi"
     }
 
--- SUBSCRIPTIONS
+
+
+-- Main browser program
+
+
 main : Program () () ()
 main =
-  Browser.element
-    { init = \_ -> ((), Cmd.none)
-    , update = \_ _ -> ((), Cmd.none)
-    , subscriptions =\_ ->  Sub.none
-    , view = \_ -> render view_ initialStore
-    }
-
-
+    Browser.element
+        { init = \_ -> ( (), Cmd.none )
+        , update = \_ _ -> ( (), Cmd.none )
+        , subscriptions = \_ -> Sub.none
+        , view = \_ -> render view initialStore
+        }
